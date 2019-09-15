@@ -13,9 +13,9 @@ const actions = {
       api
         .getAttributes(payload)
         .then(response => {
-          console.log(response)
           if (response.status === 200) {
-            commit(types.ATTRIBUTES, response.data)
+            console.log(response.data.data)
+            commit(types.ATTRIBUTES, response.data.data)
             resolve()
           }
         })
@@ -42,8 +42,8 @@ const actions = {
 }
 
 const mutations = {
-  [types.ATTRIBUTES](state, attributes) {
-    state.attributes = attributes
+  [types.ATTRIBUTES](state, value) {
+    state.attributes = value
   },
   [types.FEATURES](state, value) {
     state.features = value
