@@ -359,6 +359,7 @@ export default {
     ...mapActions(['getAttributes', 'addTempFeature', 'setStep']),
     itemType(payload) {
       this.textActived = `${payload.attr_id}-${payload.feature_id}`
+      this.selectedItem = payload
     },
     checkedFeature(param) {
       this.addTempFeature(this.selectedItem)
