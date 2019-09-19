@@ -32,3 +32,5 @@ export const TOTAL_USERS = 'TOTAL_USERS'
 // Identify
 export const ATTRIBUTES = 'ATTRIBUTES'
 export const FEATURES = 'FEATURES'
+export const TEMP_FEATURE = 'TEMP_FEATURE'
+export const STEPCOUNTER = 'STEPCOUNTER'

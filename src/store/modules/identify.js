@@ -4,7 +4,8 @@ import { buildSuccess, handleError } from '@/utils/utils.js'
 
 const getters = {
   attributes: state => state.attributes,
-  features: state => state.features
+  features: state => state.features,
+  stepCounter: state => state.stepCounter
 }
 
 const actions = {
@@ -15,6 +16,7 @@ const actions = {
         .then(response => {
           if (response.status === 200) {
             console.log(response.data.data)
+            commit(types.ATTRIBUTES, response.data.data)
             commit(types.ATTRIBUTES, response.data.data)
             resolve()
           }
@@ -39,6 +41,12 @@ const actions = {
         })
     })
   },
+  addTempFeature({ commit }, payload) {
+    commit(types.TEMP_FEATURE, payload)
+  },
+  setStep({commit}, payload) {
+    commit(types.STEPCOUNTER, payload)
+  }
 }
 
 const mutations = {
@@ -47,12 +55,19 @@ const mutations = {
   },
   [types.FEATURES](state, value) {
     state.features = value
+  },
+  [types.TEMP_FEATURE](state, value) {
+    state.features.push(value)
+  },
+  [types.STEPCOUNTER] (step, value) {
+    state.stepCounter = value
   }
 }
 
 const state = {
   attributes: [],
-  features: []
+  features: [],
+  stepCounter: 0
 }
 
 export default {

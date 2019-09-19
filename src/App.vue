@@ -15,6 +15,7 @@
 import Toolbar from '@/components/core/Toolbar.vue'
 import Loading from '@/components/core/Loading.vue'
 import Footer from '@/components/core/Footer.vue'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'App',
@@ -66,6 +67,12 @@ export default {
     appTitle() {
       return this.$store.getters.appTitle
     }
+  },
+  mounted () {
+    this.getAttributes()    
+  },
+  methods: {
+    ...mapActions(['getAttributes', 'addTempFeature', 'setStep'])
   }
 }
 </script>
