@@ -43,9 +43,7 @@
           <v-list-tile-action>
             <v-icon>mdi-exit-to-app</v-icon>
           </v-list-tile-action>
-          <v-list-tile-content>
-            {{ $t('menuItems.LOGOUT') }}
-          </v-list-tile-content>
+          <v-list-tile-content>{{ $t('menuItems.LOGOUT') }}</v-list-tile-content>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
@@ -60,15 +58,13 @@
             tag="span"
             style="cursor: pointer"
             v-if="isTokenSet"
-            >{{ appTitle }}</router-link
-          >
+          >{{ appTitle }}</router-link>
           <router-link
             :to="{ name: 'landing' }"
             tag="span"
             style="cursor: pointer"
             v-else
-            >{{ appTitle }}</router-link
-          >
+          >{{ appTitle }}</router-link>
         </div>
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -107,12 +103,7 @@
           </v-list>
         </v-menu>
 
-        <v-btn
-          flat
-          v-if="isTokenSet"
-          @click="userLogout"
-          class="hidden-sm-and-down btnLogout"
-        >
+        <v-btn flat v-if="isTokenSet" @click="userLogout" class="hidden-sm-and-down btnLogout">
           <v-icon left>mdi-exit-to-app</v-icon>
           {{ $t('menuItems.LOGOUT') }}
         </v-btn>
@@ -223,7 +214,7 @@ export default {
       return [
         {
           title: this.$t('menuItems.HOME'),
-          link: 'landing',
+          link: 'landing'
         },
         {
           title: this.$t('menuItems.IDENTIFY'),
@@ -234,12 +225,12 @@ export default {
           link: 'about',
           class: 'btnAbout'
         },
-        // {
-        //   title: this.$t('menuItems.LOGIN'),
-        //   link: 'login',
-        //   icon: 'mdi-lock',
-        //   class: 'btnLogin'
-        // },
+        {
+          title: this.$t('menuItems.LOGIN'),
+          link: 'login',
+          icon: 'mdi-lock',
+          class: 'btnLogin'
+        }
         // {
         //   title: this.$t('menuItems.SIGNUP'),
         //   link: 'signup',

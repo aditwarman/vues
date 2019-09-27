@@ -8,6 +8,16 @@ import i18n from '@/plugins/i18n'
 import App from '@/App.vue'
 import router from '@/router'
 import { store } from '@/store'
+import VueSocialauth from 'vue-social-auth'
+
+Vue.use(VueSocialauth, {
+  providers: {
+    google: {
+      clientId: '438889138125-ha0mpnnlduq11ho467hqtiq6laeg3tq9.apps.googleusercontent.com',
+      redirectUri: '/auth/google/callback' // Your client app URL
+    }
+  }
+})
 
 Vue.config.productionTip = false
 
