@@ -50,12 +50,12 @@
                     </v-list-tile>
                   </v-list>
                   <v-btn
-                    v-if="n != Object.keys(items).length"
+                    v-if="n != Object.keys(data).length"
                     color="primary"
                     @click.native="checkedFeature(n)"
                   >Lanjut</v-btn>
 
-                  <v-btn v-else>Simpan</v-btn>
+                  <v-btn v-else @click.native="processing()">Simpan</v-btn>
                   <v-btn flat>Kembali</v-btn>
                 </v-stepper-content>
               </div>
@@ -89,8 +89,7 @@ export default {
       data: mushroom,
       textActived: '',
       avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-      dialog: false,
-      authenticated: false
+      btnText: ''
     }
   },
   computed: {
@@ -103,6 +102,14 @@ export default {
     },
     openDialog() {
       return this.isTokenSet === true ? false : true
+    },
+    btnNext: {
+      get() {
+        return this.btnText
+      },
+      set(data) {
+        this.btnText = data
+      }
     },
     activeFeature: {
       get() {
@@ -126,15 +133,20 @@ export default {
       'getAttributes',
       'addTempFeature',
       'setStep',
-      'socialSignIn'
+      'socialSignIn',
+      'saveCases'
     ]),
+    ...mapGetters(['features']),
     itemType(payload) {
       this.textActived = `${payload.attr_id}-${payload.feature_id}`
       this.selectedItem = payload
     },
     checkedFeature(param) {
       this.addTempFeature(this.selectedItem)
-      // this.counter(parseInt(param) + 1)
+
+      console.log(this)
+      // console.log(this.data.length)
+      // if (param != Object.keys(items).length)
       this.e6 = parseInt(param) + 1
     },
     AuthProvider(provider) {
@@ -149,7 +161,41 @@ export default {
           console.log({ err: err })
         })
     },
+    processing() {
+      this.addTempFeature(this.selectedItem)
+      console.log(this.features)
+      console.log(this.$store.state.identify)
 
+      return this.saveCases(this.$store.state.identify.features)
+    },
+    async save() {
+      try {
+        const valid = await this.$validator.validateAll()
+        if (valid) {
+          this.dataTableLoading = true
+          // Updating item
+          if (this.editedItem._id) {
+            await this.editCity(this.editedItem)
+            await this.getCities(
+              buildPayloadPagination(this.pagination, this.buildSearch())
+            )
+            this.dataTableLoading = false
+          } else {
+            // Creating new item
+            await this.saveCity({ name: this.editedItem.name })
+            await this.getCities(
+              buildPayloadPagination(this.pagination, this.buildSearch())
+            )
+            this.dataTableLoading = false
+          }
+          this.close()
+        }
+        // eslint-disable-next-line no-unused-vars
+      } catch (error) {
+        this.dataTableLoading = false
+        this.close()
+      }
+    },
     SocialLogin(provider, response) {
       this.$http
         .post('/sociallogin/' + provider, response)

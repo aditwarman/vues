@@ -6,5 +6,8 @@ export default {
   },
   getFeatures() {
     return axios.get('/serv/getFeatures')
+  },
+  saveIdentify(payload) {
+    return axios.post('/serv/postNewCases', payload)
   }
 }

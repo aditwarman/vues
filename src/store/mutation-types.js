@@ -34,6 +34,7 @@ export const ATTRIBUTES = 'ATTRIBUTES'
 export const FEATURES = 'FEATURES'
 export const TEMP_FEATURE = 'TEMP_FEATURE'
 export const STEPCOUNTER = 'STEPCOUNTER'
+export const RESULT_IDENTIFY = 'RESULT_IDENTIFY'
 
 // SOCIAL
 export const SOCIAL_USER = 'SOCIAL_USER'
