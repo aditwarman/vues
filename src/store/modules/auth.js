@@ -13,6 +13,36 @@ const getters = {
 }
 
 const actions = {
+  socialSignIn({ commit }, payload) {
+    window.localStorage.setItem(
+      'user',
+      JSON.stringify(payload.data.data.user)
+    )
+    window.localStorage.setItem(
+      'token',
+      JSON.stringify(payload.data.data.token)
+    )
+    window.localStorage.setItem(
+      'tokenExpiration',
+      JSON.stringify(
+        format(
+          addMinutes(new Date(), MINUTES_TO_CHECK_FOR_TOKEN_REFRESH),
+          'X'
+        )
+      )
+    )
+    commit(types.SAVE_USER, payload.data.data.user)
+    commit(types.SAVE_TOKEN, payload.data.data.token)
+    commit(types.EMAIL_VERIFIED, payload.data.data.user.verified_email)
+    // buildSuccess(
+    //   null,
+    //   commit,
+    //   resolve,
+    //   router.push({
+    //     name: 'home'
+    //   })
+    // )
+  },
   userLogin({ commit }, payload) {
     return new Promise((resolve, reject) => {
       commit(types.SHOW_LOADING, true)

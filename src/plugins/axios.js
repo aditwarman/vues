@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
+import VueSocialauth from 'vue-social-auth'
+
 import { checkIfTokenNeedsRefresh } from '@/utils/utils.js'
 import { checkForUpdates } from '@/utils/updates.js'
 
@@ -59,6 +61,7 @@ axios.interceptors.response.use(
 Plugin.install = Vue => {
   Vue.axios = axios
   window.axios = axios
+  window.http = axios
   Object.defineProperties(Vue.prototype, {
     axios: {
       get() {
@@ -69,10 +72,23 @@ Plugin.install = Vue => {
       get() {
         return axios
       }
+    },
+    $http: {
+      get() {
+        return axios
+      }
     }
   })
 }
 
 Vue.use(Plugin)
 
+Vue.use(VueSocialauth, {
+  providers: {
+    google: {
+      clientId: '438889138125-ha0mpnnlduq11ho467hqtiq6laeg3tq9.apps.googleusercontent.com',
+      redirectUri: 'http://localhost:8080/auth/google/callback' // Your client app URL
+    }
+  }
+})
 export default Plugin
