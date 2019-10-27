@@ -48,6 +48,7 @@ const actions = {
       api
         .saveIdentify(payload)
         .then(response => {
+          commit(types.RESULT_IDENTIFY, response)
           buildSuccess(
             {
               msg: 'common.SAVED_SUCCESSFULLY'
